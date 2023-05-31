@@ -1,0 +1,26 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:Minesweeper.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="clr-namespace:Minesweeper.Views"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="Minesweeper.Views.MainWindow"
+        Icon="/Assets/Bomb.png"
+        Title="Minesweeper"
+        Width="1200"
+        Height="900">
+
+    <Design.DataContext>
+        <vm:MainWindowViewModel />
+    </Design.DataContext>
+    <StackPanel Orientation="Horizontal">
+        <Viewbox Stretch="Uniform">
+            <views:Board DataContext="{Binding BoardViewModel}" />
+        </Viewbox>
+        <StackPanel Orientation="Vertical" VerticalAlignment="Top">
+            <views:Controls DataContext="{Binding ControlsViewModel}" />
+            <views:InfoText DataContext="{Binding InfoTextViewModel}" />
+        </StackPanel>
+    </StackPanel>
+</Window>

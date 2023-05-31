@@ -1,0 +1,26 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:Minesweeper.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="100" d:DesignHeight="100"
+             x:Class="Minesweeper.Views.Field">
+    <Design.DataContext>
+        <viewModels:FieldViewModel />
+    </Design.DataContext>
+
+    <Panel Width="100" Height="100">
+        <Button Opacity="0" PointerPressed="FieldPressed" Command="{Binding OnFieldLeftClicked}" ZIndex="100"
+                Width="100" Height="100" />
+        <Panel Background="{Binding CoverColor}" ZIndex="1" IsVisible="{Binding IsCovered}" />
+        <Panel Background="{Binding Background}">
+            <Label Content="{Binding Value}" FontSize="60" FontWeight="SemiBold"
+                   Foreground="{Binding ValueColor}" HorizontalContentAlignment="Center"
+                   VerticalContentAlignment="Center"
+                   IsVisible="{Binding HasNumber}" />
+            <Image Source="/Assets/Bomb.png" IsVisible="{Binding HasBomb}" />
+        </Panel>
+        <Image Source="/Assets/Flag.png" IsVisible="{Binding IsFlagged}" ZIndex="5" />
+    </Panel>
+
+</UserControl>

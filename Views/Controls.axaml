@@ -1,0 +1,43 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:viewModels="clr-namespace:Minesweeper.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="Minesweeper.Views.Controls">
+
+    <Design.DataContext>
+        <viewModels:ControlsViewModel />
+    </Design.DataContext>
+
+    <StackPanel Orientation="Vertical" MaxHeight="400" MaxWidth="300">
+        <Label>Rows: </Label>
+        <NumericUpDown Minimum="5" Value="{Binding Global.RowsAndColumns}" Maximum="100" />
+        <Label>Bombs: </Label>
+        <NumericUpDown Minimum="5" Value="{Binding Global.AmountBombs}" Maximum="{Binding Global.MaxBombs}" />
+        <StackPanel Orientation="Horizontal">
+            <Button Command="{Binding OnLoadBoardClicked}">Load Board</Button>
+            <Button Background="Red" FontWeight="Bold" Command="{Binding OnStartClicked}"
+                    Content="{Binding Global.MainButtonText}" />
+        </StackPanel>
+        <ToggleSwitch IsEnabled="{Binding !Global.GameRunning}" OnContent="Solver On" OffContent="Solver Off"
+                      IsChecked="{Binding SolverActive}" />
+        <StackPanel Orientation="Vertical" IsVisible="{Binding SolverActive}">
+            <ToggleSwitch OffContent="Manual" OnContent="Automatic" IsChecked="{Binding Automatic}"
+                          Name="AutomaticSwitch" />
+            <Label>Delay: </Label>
+            <Slider Maximum="1000" Minimum="1" TickFrequency="1" IsSnapToTickEnabled="True" Name="Slider"
+                    Value="{Binding Delay, Mode=TwoWay}" IsDirectionReversed="True"
+                    IsEnabled="{Binding #AutomaticSwitch.IsChecked}" />
+            <NumericUpDown Maximum="1000" Minimum="1" Value="{Binding #Slider.Value, Mode=TwoWay}"
+                           IsEnabled="{Binding #AutomaticSwitch.IsChecked}" />
+            <ToggleSwitch OffContent="Backward" OnContent="Forward" IsChecked="{Binding Forward}"
+                          IsEnabled="{Binding #AutomaticSwitch.IsChecked}" />
+
+            <NumericUpDown IsReadOnly="{Binding #AutomaticSwitch.IsChecked}" Value="{Binding CurrentMove, Mode=TwoWay}"
+                           Minimum="0" Maximum="{Binding AmountMoves }" />
+        </StackPanel>
+        <ProgressBar IsIndeterminate="True" IsVisible="{Binding Global.SolverIsSolving}" />
+    </StackPanel>
+
+</UserControl>

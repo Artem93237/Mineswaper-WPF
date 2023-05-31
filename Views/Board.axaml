@@ -1,0 +1,28 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:views="clr-namespace:Minesweeper.Views"
+             xmlns:viewModels="clr-namespace:Minesweeper.ViewModels"
+             mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="500"
+             x:Class="Minesweeper.Views.Board">
+    <Design.DataContext>
+        <viewModels:BoardViewModel />
+    </Design.DataContext>
+
+    <ItemsControl Items="{Binding Fields}">
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <UniformGrid Background="Black" Rows="{Binding Global.CurrentRowsAndColumns}"
+                             Columns="{Binding Global.CurrentRowsAndColumns}" />
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <ContentControl>
+                    <views:Field Width="100" Height="100" DataContext="{Binding .}" />
+                </ContentControl>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
+</UserControl>
